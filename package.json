@@ -1,0 +1,14 @@
+{
+  "name": "multiple_frameworks_demo",
+  "version": "1.0.0",
+  "description": "Demo of a micro frontend architechture with the apps in different frameworks'",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lerna": "^3.22.1"
+  }
+}
