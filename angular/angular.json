@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "host-app": {
+    "angularApp": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/browser",
+            "outputPath": "dist",
             "index": "public/index.html",
             "main": "src/index.ts",
             "tsConfig": "./tsconfig.json",
@@ -59,22 +59,22 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "host-app:build"
+            "browserTarget": "angularApp:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "host-app:build:production"
+              "browserTarget": "angularApp:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "host-app:build"
+            "browserTarget": "angularApp:build"
           }
         }
       }
     }
   },
-  "defaultProject": "host-app"
+  "defaultProject": "angularApp"
 }

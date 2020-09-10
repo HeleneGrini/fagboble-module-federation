@@ -2,24 +2,23 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { ModuleFederationPlugin } = require("webpack").container;
 const path = require("path");
 const { AngularCompilerPlugin } = require("@ngtools/webpack");
+const ProgressPlugin = require("webpack/lib/ProgressPlugin");
 
-console.log(__dirname);
 module.exports = {
   entry: "./src/index.ts",
-  mode: "development",
+  resolve: {
+    mainFields: ["browser", "module", "main"],
+  },
+  mode: "production",
   output: {
-    path: resolve(__dirname, buildFolder),
+    publicPath: "http://localhost:4200/",
+  },
+  devServer: {
+    contentBase: path.join(__dirname),
+    port: 4200,
   },
   module: {
     rules: [
-      {
-        test: /\.jsx?$/,
-        loader: "babel-loader",
-        exclude: /node_modules/,
-        options: {
-          presets: ["@babel/preset-react"],
-        },
-      },
       {
         test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
         loader: "@ngtools/webpack",
@@ -32,18 +31,25 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: "angular-app",
-      library: { type: "var", name: "angular-app" },
+      name: "angularApp",
+      library: { type: "var", name: "angularApp" },
       filename: "remoteEntry.js",
-      exposes: {
-        "./Component": "./src/Component",
+      remotes: {
+        vueApp: "vueApp",
       },
-      shared: ["react", "react-dom"],
+      exposes: {
+        "./Component": "./src/app.component.ts",
+        "./Module": "./src/app.module.ts",
+      },
+      shared: [],
     }),
+    new ProgressPlugin(),
+
     new AngularCompilerPlugin({
-      entryModule: "./src/app.module#AppModule",
+      tsConfigPath: "./tsconfig.json",
       skipCodeGeneration: true,
       directTemplateLoading: false,
+      entryModule: "./src/app.module#AppModule",
     }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
