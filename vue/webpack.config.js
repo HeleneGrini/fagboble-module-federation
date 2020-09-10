@@ -51,7 +51,7 @@ module.exports = (env = {}) => ({
       remotes: {
         angularApp: "angularApp",
       },
-      exposes: { App: "./src/App.vue" },
+      exposes: { "./loadApp": "./src/loadApp.js" },
     }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
