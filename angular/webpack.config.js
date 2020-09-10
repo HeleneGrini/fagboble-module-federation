@@ -40,6 +40,7 @@ module.exports = {
       exposes: {
         "./Component": "./src/app.component.ts",
         "./Module": "./src/app.module.ts",
+        "./loadApp": "./src/loadApp.js",
       },
       shared: [],
     }),
