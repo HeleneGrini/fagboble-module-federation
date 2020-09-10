@@ -45,13 +45,16 @@ module.exports = (env = {}) => ({
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: "layout",
-      library: { type: "var", name: "layout" },
+      name: "vueApp",
+      library: { type: "var", name: "vueApp" },
       filename: "remoteEntry.js",
+      remotes: {
+        angularApp: "angularApp",
+      },
       exposes: { App: "./src/App.vue" },
     }),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "./public/index.html"),
+      template: "./public/index.html",
     }),
     new VueLoaderPlugin(),
   ],
